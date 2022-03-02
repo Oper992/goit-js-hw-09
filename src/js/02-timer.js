@@ -12,7 +12,6 @@ const ref = {
 };
 
 const currentDataUnix = new Date().getTime();
-const timeLeftMs = JSON.parse(localStorage.getItem('time_left'));
 
 ref.btnStart.setAttribute('disabled', '');
 
@@ -35,17 +34,29 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
+function addLeadingZero({ days, hours, minutes, seconds }) {
+  const newObj = {};
+  newObj.days = String(days).padStart(2, 0);
+  newObj.hours = String(hours).padStart(2, 0);
+  newObj.minutes = String(minutes).padStart(2, 0);
+  newObj.seconds = String(seconds).padStart(2, 0);
+
+  return newObj;
+}
+
 const startTiming = () => {
-  const setIntervalId = setInterval(() => {
-    let countdown = 0;
-    const { days, hours, minutes, seconds } = convertMs(countdown);
-    countdown = timeLeftMs - 1000;
-    console.log(countdown);
+  let timeLeftMs = JSON.parse(localStorage.getItem('time_left'));
+
+  const timerId = setInterval(() => {
+    timeLeftMs -= 1000;
+    const { days, hours, minutes, seconds } = addLeadingZero(convertMs(timeLeftMs));
 
     ref.days.textContent = days;
     ref.hours.textContent = hours;
     ref.minutes.textContent = minutes;
     ref.seconds.textContent = seconds;
+
+    console.log(timeLeftMs);
   }, 1000);
 };
 
@@ -68,6 +79,7 @@ const options = {
     localStorage.setItem('time_left', JSON.stringify(timeLeftMs));
   },
 };
-const fp = flatpickr(ref.input, options);
+
+flatpickr(ref.input, options);
 
 ref.btnStart.addEventListener('click', startTiming);
