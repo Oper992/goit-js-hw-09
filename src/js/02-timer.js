@@ -49,15 +49,20 @@ const startTiming = () => {
 
   const timerId = setInterval(() => {
     timeLeftMs -= 1000;
+
     const { days, hours, minutes, seconds } = addLeadingZero(convertMs(timeLeftMs));
+
+    if (days === '00' && hours === '00' && minutes === '00' && seconds === '00') {
+      clearInterval(timerId);
+    }
 
     ref.days.textContent = days;
     ref.hours.textContent = hours;
     ref.minutes.textContent = minutes;
     ref.seconds.textContent = seconds;
-
-    console.log(timeLeftMs);
   }, 1000);
+
+  ref.btnStart.removeEventListener('click', startTiming);
 };
 
 const options = {

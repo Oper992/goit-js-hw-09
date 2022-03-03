@@ -1,0 +1,16 @@
+.timer {
+  display: flex;
+  padding-top: 20px;
+}
+
+.field {
+  display: grid;
+  text-align: center;
+}
+.field:not(:last-child) {
+  margin-right: 20px;
+}
+
+.value {
+  font-size: 40px;
+}
