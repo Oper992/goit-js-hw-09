@@ -35,13 +35,12 @@ function convertMs(ms) {
 }
 
 function addLeadingZero({ days, hours, minutes, seconds }) {
-  const newObj = {};
-  newObj.days = String(days).padStart(2, 0);
-  newObj.hours = String(hours).padStart(2, 0);
-  newObj.minutes = String(minutes).padStart(2, 0);
-  newObj.seconds = String(seconds).padStart(2, 0);
-
-  return newObj;
+  return {
+    days: String(days).padStart(2, 0),
+    hours: String(hours).padStart(2, 0),
+    minutes: String(minutes).padStart(2, 0),
+    seconds: String(seconds).padStart(2, 0),
+  };
 }
 
 const startTiming = () => {
