@@ -13,7 +13,7 @@ const ref = {
 
 const currentDataUnix = new Date().getTime();
 
-ref.btnStart.setAttribute('disabled', '');
+ref.btnStart.setAttribute('disabled', 'true');
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -44,6 +44,9 @@ function addLeadingZero({ days, hours, minutes, seconds }) {
 }
 
 const startTiming = () => {
+  ref.btnStart.setAttribute('disabled', 'true');
+  ref.input.setAttribute('disabled', 'true');
+
   let timeLeftMs = JSON.parse(localStorage.getItem('time_left'));
 
   const timerId = setInterval(() => {
@@ -51,7 +54,7 @@ const startTiming = () => {
 
     const { days, hours, minutes, seconds } = addLeadingZero(convertMs(timeLeftMs));
 
-    if (days === '00' && hours === '00' && minutes === '00' && seconds === '00') {
+    if (timeLeftMs <= 1000) {
       clearInterval(timerId);
     }
 

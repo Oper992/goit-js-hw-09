@@ -10,6 +10,8 @@ const generatorPromises = e => {
   const step = Number(e.currentTarget.elements.step.value);
   const amount = Number(e.currentTarget.elements.amount.value);
 
+  form.reset()
+  
   const intervalId = setInterval(() => {
     position += 1;
 
